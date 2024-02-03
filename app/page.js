@@ -26,7 +26,7 @@ export default function Home() {
       {/* Add Hero section */}
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4 text-center">Featured Blog Posts</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {featuredPosts.map((post) => (
               <div key={post.id} className="bg-white p-4 rounded shadow">
                 <Link href={`/blog/post?id=${post.id}`} className="text-secondary hover:underline">{post.title}</Link>
@@ -38,16 +38,16 @@ export default function Home() {
 
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4 text-center">Categories</h2>
-          <div className="flex justify-center space-x-4">
+          <div className="flex justify-center space-x-4 overflow-auto p-4 items-center">
             {categories.map((category) => (
-              <Link key={category} href={`/category/${category}`} className="text-accent hover:underline">{category}</Link>
+              <Link key={category} href={`/post/category/${category}`} className="text-accent hover:underline text-sm sm:text-base">{category}</Link>
             ))}
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4 text-center">Recent Blog Posts</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {recentPosts.map((post) => (
               <div key={post.id} className="bg-white p-4 rounded shadow">
                 <Link href={`/blog/post?${post.id}`} className="text-secondary hover:underline">{post.title}</Link>

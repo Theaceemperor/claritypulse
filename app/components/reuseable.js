@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FaBars, FaComment, FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaX, FaXTwitter } from 'react-icons/fa6';
-import { FaTimes } from 'react-icons/fa';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 
 
 export function PostList({ posts }) {
@@ -36,37 +36,37 @@ export function PostForm({ onSubmit }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-lg">
-        <h2 className="text-xl font-bold mb-4">Create a New Post</h2>
-        <div className="mb-4">
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-            Title
-            </label>
-            <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="border rounded w-full px-3 py-2"
-            required
-            />
-        </div>
-        <div className="mb-4">
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-            Content
-            </label>
-            <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows="4"
-            className="border rounded w-full px-3 py-2"
-            required
-            ></textarea>
-        </div>
-        <button type="submit" className="bg-primary text-white px-4 py-2 rounded hover:bg-accent transition duration-300">
-            Create Post
-        </button>
+        <form onSubmit={handleSubmit} className="max-w-lg mb-8">
+            <h2 className="text-xl font-bold mb-4">Create a New Post</h2>
+            <div className="mb-4">
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                Title
+                </label>
+                <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="border rounded w-full px-3 py-2 text-secondary"
+                required
+                />
+            </div>
+            <div className="mb-4">
+                <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                Content
+                </label>
+                <textarea
+                id="content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                rows="4"
+                className="border rounded w-full px-3 py-2 text-secondary"
+                required
+                ></textarea>
+            </div>
+            <button type="submit" className="bg-primary text-accent hover:text-primary px-4 py-2 rounded hover:bg-accent transition duration-300">
+                Create Post
+            </button>
         </form>
     );
 }
@@ -243,14 +243,14 @@ export function ContactInfo() {
     const router = useRouter();
 
     return (
-        <section className="py-16 bg-gray-100">
+        <section className="py-16 bg-gray-100 mb-8">
             <div className="container mx-auto text-center">
                 <h2 className="text-4xl font-bold mb-4 text-black/90">Contact Us</h2>
                 <p className="text-lg text-gray-700 mb-8">
                 Have questions, suggestions or want to post your story? Reach out to us!
                 </p>
                 {/* Add your contact information here, such as email, phone, or a contact form */}
-                <button onClick={() => router.push('/contact')} className="rounded-lg px-4 py-1 bg-accent text-white hover:bg-transparent hover:text-accent font-semibold">Contact Us</button>
+                <button onClick={() => router.push('#contact-us')} className="rounded-lg px-4 py-1 bg-accent text-white hover:bg-transparent hover:text-accent font-semibold">Contact Us</button>
             </div>
         </section>
     )
@@ -445,13 +445,13 @@ export function SearchBar({ onSearch }) {
             placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border rounded px-3 py-2 mr-2 text-secondary"
+            className="border rounded p-1.5 mr-1.5 text-secondary"
             />
             <button
             onClick={handleSearch}
-            className="bg-primary text-secondary px-4 py-2 rounded hover:bg-accent transition duration-300"
+            className="bg-primary text-secondary p-2 rounded-full hover:bg-accent hover:text-primary transition duration-300"
             >
-            Search
+            <FaSearch />
             </button>
         </div>
     );
@@ -505,7 +505,7 @@ export function BlogPostList({ posts }) {
                 <ul>
                     {categories.map((category) => (
                     <li key={category} className="mb-2">
-                        <Link href={`/blog/category/${category}`} className="text-secondary hover:underline">{category}</Link>
+                        <Link href={`/post/category/${category}`} className="text-secondary hover:underline">{category}</Link>
                     </li>
                     ))}
                 </ul>
@@ -597,7 +597,7 @@ export function NewsLetterSubscription() {
     };
 
     return (
-        <form onSubmit={handleSubscription} className="flex space-x-2">
+        <form onSubmit={handleSubscription} className="flex flex-col space-y-2">
             <input
             type="email"
             placeholder="Your email"
@@ -617,13 +617,18 @@ export function NewsLetterSubscription() {
 export function NavBar() {
     const pathName = usePathname();
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [currentPathName, setCurrentPathName] = React.useState(pathName);
+
+    // if (window.location.href.) {
+
+    // }
   
     const toggleMenu = () => {
       setIsMenuOpen(!isMenuOpen);
     };
 
     return (
-        <nav className="bg-primary/70 p-4 fixed top-0 left-0 right-0">
+        <nav className="bg-primary/70 p-4 fixed top-0 left-0 right-0 z-30">
             <div className="container mx-auto flex justify-between items-center">
                 <Link href="/"  className={pathName === '/' ? "text-accent text-xl font-bold animate-pulse" : "text-secondary text-xl font-bold"}>Clarity Pulse</Link>
                 <div className="hidden sm:flex space-x-4">
@@ -639,10 +644,10 @@ export function NavBar() {
                 </div>
                 {isMenuOpen && (
                     <div className="md:hidden absolute top-16 left-0 right-0 bg-primary text-secondary p-4">
-                        <Link href="/" className={pathName === '/' ? "text-accent font-bold block mb-2" : "block mb-2"}>Home</Link>
-                        <Link href="/blog" className={pathName === '/blog' ? "text-accent font-bold block mb-2" : "block mb-2"}>Blog</Link>
-                        <Link href="/about" className={pathName === '/about' ? "text-accent font-bold block mb-2" : "block mb-2"}>About</Link>
-                        <Link href="#contact-us" className="block">Contact</Link>
+                        <Link href="/" className={pathName === '/' ? "text-accent font-bold block mb-2" : "block mb-2"} onClick={() => setIsMenuOpen(false)}>Home</Link>
+                        <Link href="/blog" onClick={() => setIsMenuOpen(false)} className={pathName === '/blog' ? "text-accent font-bold block mb-2" : "block mb-2"}>Blog</Link>
+                        <Link href="/about" onClick={() => setIsMenuOpen(false)} className={pathName === '/about' ? "text-accent font-bold block mb-2" : "block mb-2"}>About</Link>
+                        <Link href="#contact-us" onClick={() => setIsMenuOpen(false)} className="block">Contact</Link>
                     </div>
                 )}
             </div>
@@ -662,6 +667,7 @@ export function Footer() {
 }
 
 export default function AppLayout({ children }) {
+    const pathName = usePathname();
 
     return (
         <>
@@ -669,16 +675,20 @@ export default function AppLayout({ children }) {
             <main className="mt-20">
                 {children}
             </main>
-            <section id="#subscribe" className="mb-8 flex flex-col items-center">
-                <h2 className="text-2xl font-bold mb-4">Newsletter Subscription</h2>
-                {/* Add your newsletter subscription form component here */}
-                <NewsLetterSubscription />
-            </section>
-            <section id="contact-us">
-                <h2 className="text-2xl font-bold mb-4 text-center">Connect with Us</h2>
-                {/* Add your social media integration component here */}
-                <ContactForm />
-            </section>
+            {pathName != '/dashboard' && (
+                <section id="#subscribe" className="mb-8 flex flex-col items-center px-2">
+                    <h2 className="text-2xl font-bold mb-4">Newsletter Subscription</h2>
+                    {/* Add your newsletter subscription form component here */}
+                    <NewsLetterSubscription />
+                </section>
+            )}
+            {pathName != '/dashboard' && (
+                <section id="contact-us" className="px-2">
+                    <h2 className="text-2xl font-bold mb-4 text-center">Connect with Us</h2>
+                    {/* Add your social media integration component here */}
+                    <ContactForm />
+                </section>
+            )}
             <Footer />
         </>
     )
